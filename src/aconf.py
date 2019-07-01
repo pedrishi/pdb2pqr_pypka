@@ -53,10 +53,10 @@ PDB2PQR_VERSION = "master"
 MAXATOMS = 10000
 
 """ The absolute path to root HTML directory"""
-SRCPATH = "/user04/pedror/Downloads/apbs-pdb2pqr-master/pdb2pqr/"
+SRCPATH = "/mnt/c/Users/pedro/Documents/pypka/pdb2pqr_pypka/"
 
 """ The path to the web site *directory* """
-WEBSITE     = "http://qit04/pdb2pqr/"
+WEBSITE     = "http://DESKTOP-NGTO9J9/pdb2pqr/"
 
 """ The stylesheet to use """
 STYLESHEET  = WEBSITE + "pdb2pqr.css"
@@ -77,7 +77,7 @@ HAVE_APBS = APBS_LOCATION != ""
 APBS_OPAL_URL = ""
 
 """ The installation directory """
-INSTALLDIR = "/user04/pedror/pdb2pqr/"
+INSTALLDIR = "/home/pedror/pdb2pqr/"
 
 """ The temporary directory """
 TMPDIR = "tmp/"

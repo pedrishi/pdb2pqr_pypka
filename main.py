@@ -426,11 +426,21 @@ def runPDB2PQR(pdblist, ff,
             myNameScheme = Forcefield(scheme, myDefinition, userff)
         else:
             myNameScheme = myForcefield
-        myRoutines.applyNameScheme(myNameScheme)
+        toRemove = myRoutines.applyNameScheme(myNameScheme)
+
+        for atom in toRemove:
+            try:
+                rname = atom.resName
+                aname = atom.name
+                hitlist.remove(atom)
+                print rname, atom, "- Deleted this atom."
+            except:
+                continue
 
     header = printPQRHeader(pdblist, misslist, reslist, charge, ff,
                             myRoutines.getWarnings(), ph_calc_method, ph, ffout, commandLine,
                             include_old_header=include_old_header)
+
     lines = myProtein.printAtoms(hitlist, chain)
 
     # Determine if any of the atoms in misslist were ligands
@@ -459,7 +469,7 @@ def mainCommand(argv):
         Main driver for running program from the command line.
     """
 
-    fieldNames = ('amber','charmm','parse', 'tyl06','peoepb','swanson')
+    fieldNames = ('gromos', 'amber','charmm','parse', 'tyl06','peoepb','swanson')
 
     validForcefields = []
     validForcefields.extend(fieldNames)

@@ -180,9 +180,10 @@ class Protein:
         try:
             refobj = self.referencemap[resname]
             if refobj.name != resname: #Patched!
-                obj = "%s(residue, refobj)" % refobj.name
+                fullobj = self.referencemap[refobj.name]
+                obj = "%s(residue, refobj)" % fullobj.name
                 residue = eval(obj)
-                residue.reference = refobj
+                residue.reference = fullobj
             else:
                 obj = "%s(residue, refobj)" % resname
                 residue = eval(obj)

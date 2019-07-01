@@ -343,7 +343,7 @@
         function getpqr(jobid){
             var xhr = new XMLHttpRequest();
             //jobid = 14357857643;
-            url = "http://qit04/pdb2pqr/tmp/"+jobid+"/"+jobid+".pqr";
+            url = "http://DESKTOP-NGTO9J9/pdb2pqr/tmp/"+jobid+"/"+jobid+".pqr";
             //url = "../3dmol/files/1fas.pqr";
             xhr.open("GET", url);
             //xhr.responseType = 'blob';
@@ -363,7 +363,7 @@
 
         function getcube(jobid){
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://qit04/pdb2pqr/tmp/"+jobid+"/"+jobid+".cube");
+            xhr.open("GET", "http://DESKTOP-NGTO9J9/pdb2pqr/tmp/"+jobid+"/"+jobid+".cube");
             //xhr.open("GET", "../3dmol/files/1fas.cube");
             //xhr.responseType = 'blob';
 

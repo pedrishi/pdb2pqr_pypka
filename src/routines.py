@@ -128,6 +128,7 @@ class Routines:
                 forcefield: The forcefield object (forcefield)
 
         """
+        toRemove = []
         self.write("Applying the naming scheme to the protein...")
         for residue in self.protein.getResidues():
             if isinstance(residue, (Amino, WAT, Nucleic)):
@@ -146,8 +147,11 @@ class Routines:
                 if aname != None and rname != None:
                     atom.resName = rname
                     atom.name = aname
+                elif aname == None:
+                    toRemove.append(atom)
 
         self.write("Done.\n")
+        return toRemove
 
     def applyForcefield(self, forcefield):
         """

@@ -278,7 +278,7 @@ def getFFfile(name):
     
     path = ""
     dirs = sys.path + ["dat"]
-    if name in ["amber", "charmm", "parse", "tyl06", "peoepb", "swanson"]: name = name.upper()
+    if name in ["gromos", "amber", "charmm", "parse", "tyl06", "peoepb", "swanson"]: name = name.upper()
 
     names = ["dat/%s.DAT" % name]
     
@@ -315,11 +315,11 @@ def getNamesFile(name):
     
     path = ""
     dirs = sys.path + ["dat"]
-    if name in ["amber", "charmm", "parse", "tyl06", "peoepb", "swanson"]: name = name.upper()
+    if name in ["gromos", "amber", "charmm", "parse", "tyl06", "peoepb", "swanson"]: name = name.upper()
 
     names = ["dat/%s.names" % name]
     names.append("%s.names" % name)
-  
+
     for guess in names:
         if os.path.isfile(guess):
             return guess

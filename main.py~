@@ -344,13 +344,6 @@ def runPDB2PQR(pdblist, ff,
 
         myhydRoutines = hydrogenRoutines(myRoutines)
 
-        for residue in myProtein.getResidues():
-            text = ''
-            for atom in residue.atoms:
-                text += '{} '.format(atom.name)
-            print residue, text
-
-
         if debump:
             myRoutines.debumpProtein()
 
@@ -365,35 +358,13 @@ def runPDB2PQR(pdblist, ff,
         # Special for GLH/ASH, since both conformations were added
         myhydRoutines.cleanup()
 
-        for residue in myProtein.getResidues():
-            text = ''
-            for atom in residue.atoms:
-                text += '{} '.format(atom.name)
-            print residue, text
-
-
-
     else:  # Special case for HIS if using assign-only
         for residue in myProtein.getResidues():
             if isinstance(residue, HIS):
                 myRoutines.applyPatch("HIP", residue)
 
-    for residue in myProtein.getResidues():
-        text = ''
-        for atom in residue.atoms:
-            text += '{} '.format(atom.name)
-        print residue, text
-
-
     myRoutines.setStates()
 
-
-    for residue in myProtein.getResidues():
-        text = ''
-        for atom in residue.atoms:
-            text += '{} '.format(atom.name)
-        print residue, text
-    
     myForcefield = Forcefield(ff, myDefinition, userff, usernames)
     hitlist, misslist = myRoutines.applyForcefield(myForcefield)
     
@@ -455,11 +426,21 @@ def runPDB2PQR(pdblist, ff,
             myNameScheme = Forcefield(scheme, myDefinition, userff)
         else:
             myNameScheme = myForcefield
-        myRoutines.applyNameScheme(myNameScheme)
+        toRemove = myRoutines.applyNameScheme(myNameScheme)
+
+        for atom in toRemove:
+            try:
+                rname = atom.resName
+                aname = atom.name
+                hitlist.remove(atom)
+                print rname, atom, "- Deleted this atom."
+            except:
+                continue
 
     header = printPQRHeader(pdblist, misslist, reslist, charge, ff,
                             myRoutines.getWarnings(), ph_calc_method, ph, ffout, commandLine,
                             include_old_header=include_old_header)
+
     lines = myProtein.printAtoms(hitlist, chain)
 
     # Determine if any of the atoms in misslist were ligands
@@ -488,7 +469,7 @@ def mainCommand(argv):
         Main driver for running program from the command line.
     """
 
-    fieldNames = ('amber','charmm','parse', 'tyl06','peoepb','swanson')
+    fieldNames = ('gromos', 'amber','charmm','parse', 'tyl06','peoepb','swanson')
 
     validForcefields = []
     validForcefields.extend(fieldNames)
